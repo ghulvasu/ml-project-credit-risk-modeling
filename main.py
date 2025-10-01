@@ -21,13 +21,13 @@ st.markdown("""
         text-align: center;
         font-weight: bold;
         padding-top: 20px;
-        font-size: 2.75rem; /* Increased font size */
+        font-size: 2.75rem;
     }
     .sub-header {
         text-align: center;
         color: #4B5563; /* Gray */
         margin-bottom: 30px;
-        font-size: 1.2rem; /* Increased font size */
+        font-size: 1.2rem;
     }
 
     /* Input Cards */
@@ -35,12 +35,13 @@ st.markdown("""
         background-color: white;
         padding: 25px;
         border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         margin-bottom: 20px;
-        height: 100%; /* Make cards in a row have the same height */
+        height: 100%;
+        border: 1px solid #D1D5DB; /* Added gray border */
     }
     .card-title {
-        font-size: 1.5rem; /* Increased font size */
+        font-size: 1.5rem;
         font-weight: bold;
         color: #374151; /* Dark Gray */
         margin-bottom: 20px;
@@ -75,7 +76,7 @@ st.markdown("""
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         text-align: center;
-        height: 100%; /* Make result cards in a row have the same height */
+        height: 100%;
     }
     .rating-box {
         padding: 12px;
@@ -86,10 +87,10 @@ st.markdown("""
         margin-top: 15px;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
-    .rating-Excellent { background: linear-gradient(45deg, #10B981, #34D399); } /* Green */
-    .rating-Good { background: linear-gradient(45deg, #3B82F6, #60A5FA); }      /* Blue */
-    .rating-Average { background: linear-gradient(45deg, #F59E0B, #FBBF24); }   /* Amber */
-    .rating-Poor { background: linear-gradient(45deg, #EF4444, #F87171); }       /* Red */
+    .rating-Excellent { background: linear-gradient(45deg, #10B981, #34D399); }
+    .rating-Good { background: linear-gradient(45deg, #3B82F6, #60A5FA); }
+    .rating-Average { background: linear-gradient(45deg, #F59E0B, #FBBF24); }
+    .rating-Poor { background: linear-gradient(45deg, #EF4444, #F87171); }
 
 </style>
 """, unsafe_allow_html=True)
@@ -106,7 +107,7 @@ with st.form(key='credit_risk_form'):
     with col1:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.markdown('<p class="card-title">Applicant & Loan Details</p>', unsafe_allow_html=True)
-        age = st.slider('Age', min_value=18, max_value=100, value=28, key='age_slider')
+        age = st.number_input('Age', min_value=18, max_value=100, value=28, step=1, key='age_input')
         income = st.number_input('Annual Income (in ₹)', min_value=0, value=1200000, step=10000, key='income_input')
         loan_amount = st.number_input('Loan Amount (in ₹)', min_value=0, value=2560000, step=10000,
                                       key='loan_amount_input')
@@ -120,12 +121,13 @@ with st.form(key='credit_risk_form'):
     with col2:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.markdown('<p class="card-title">Credit History</p>', unsafe_allow_html=True)
-        num_open_accounts = st.slider('Number of Open Loan Accounts', min_value=0, max_value=10, value=2,
-                                      key='open_accounts_slider')
-        delinquency_ratio = st.slider('Delinquency Ratio (%)', min_value=0, max_value=100, value=30,
-                                      key='delinquency_slider')
-        credit_utilization_ratio = st.slider('Credit Utilization Ratio (%)', min_value=0, max_value=100, value=30,
-                                             key='utilization_slider')
+        num_open_accounts = st.number_input('Number of Open Loan Accounts', min_value=0, max_value=20, value=2, step=1,
+                                            key='open_accounts_input')
+        # --- MODIFIED: Changed slider to number_input for Delinquency Ratio ---
+        delinquency_ratio = st.number_input('Delinquency Ratio (%)', min_value=0, max_value=100, value=30, step=1,
+                                            key='delinquency_input')
+        credit_utilization_ratio = st.number_input('Credit Utilization Ratio (%)', min_value=0, max_value=100, value=30,
+                                                   step=1, key='utilization_input')
         avg_dpd_per_delinquency = st.number_input('Average Days Past Due', min_value=0, value=20, key='dpd_input')
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -143,7 +145,7 @@ if submit_button:
 
     st.write("")  # Add a little space before showing the result
 
-    col_res1, col_res2 = st.columns([2, 1.5])  # Give more space to the gauge
+    col_res1, col_res2 = st.columns([2, 1.5])
 
     with col_res1:
         st.markdown('<div class="result-card">', unsafe_allow_html=True)
@@ -160,10 +162,10 @@ if submit_button:
                 'borderwidth': 2,
                 'bordercolor': "gray",
                 'steps': [
-                    {'range': [300, 500], 'color': '#F87171'},  # Red
-                    {'range': [500, 650], 'color': '#FBBF24'},  # Amber
-                    {'range': [650, 750], 'color': '#60A5FA'},  # Blue
-                    {'range': [750, 900], 'color': '#34D399'}  # Green
+                    {'range': [300, 500], 'color': '#F87171'},
+                    {'range': [500, 650], 'color': '#FBBF24'},
+                    {'range': [650, 750], 'color': '#60A5FA'},
+                    {'range': [750, 900], 'color': '#34D399'}
                 ],
             }))
         gauge_fig.update_layout(height=300, margin=dict(l=10, r=10, t=50, b=10))
@@ -173,7 +175,6 @@ if submit_button:
     with col_res2:
         st.markdown('<div class="result-card">', unsafe_allow_html=True)
         st.markdown("<h3 style='color: #1E3A8A; font-weight: bold;'>Risk Assessment</h3>", unsafe_allow_html=True)
-        # Display the colored rating box and default probability
         st.markdown(f'<div class="rating-box rating-{rating}">Rating: {rating}</div>', unsafe_allow_html=True)
         st.markdown(f"<p style='margin-top: 30px; font-size: 1.2rem; color: #4B5563;'>Default Probability</p>",
                     unsafe_allow_html=True)
