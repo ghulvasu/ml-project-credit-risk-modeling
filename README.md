@@ -60,16 +60,3 @@ Once the dependencies are installed, you can launch the application:
 
 streamlit run main.py
 
-The application should now be open and running in your web browser!
-
-📂 Project Structure
-├── artifacts
-│   └── model_data.joblib       # Trained model, scaler, and features
-├── Datasets
-│   └── *.csv                   # Original datasets used for training (optional)
-├── .gitignore                  # Files to be ignored by Git
-├── main.py                     # Main Streamlit application script (UI)
-├── prediction_helper.py        # Backend script for data preprocessing and prediction
-├── requirements.txt            # List of Python dependencies
-├── README.md                   # Project documentation
-└── Untitled (3).ipynb          # Jupyter Notebook for model training
