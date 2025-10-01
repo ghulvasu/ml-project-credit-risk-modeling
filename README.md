@@ -34,7 +34,7 @@ Follow these steps to set up and run the project on your local machine.
 1. Clone the Repository
 Open your terminal and clone this repository using Git:
 
-git clone [https://github.com/YourUsername/your-repo-name.git](https://github.com/YourUsername/your-repo-name.git)
+git clone https://github.com/ghulvasu/ml-project-credit-risk-modeling.git
 cd your-repo-name
 
 (Replace YourUsername/your-repo-name with your actual GitHub repository URL.)
